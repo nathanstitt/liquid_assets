@@ -9,49 +9,65 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nathan Stitt"]
-  s.date = "2013-03-12"
-  s.description = "Asset pipeline and templates"
+  s.date = "2013-03-14"
+  s.description = "Allows you to use Liquid format templates in Rails, both as\nview templates and as compiled JavaScript via the asset_pipeline."
   s.email = "nathan@stitt.org"
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.rdoc"
+    "README.md"
   ]
   s.files = [
     ".document",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
-    "README.rdoc",
+    "README.md",
     "Rakefile",
     "VERSION",
     "lib/liquid_assets.rb",
     "lib/liquid_assets/config.rb",
     "lib/liquid_assets/engine.rb",
-    "lib/liquid_assets/liquid.rb",
-    "lib/liquid_assets/tilt.rb",
+    "lib/liquid_assets/template_handler.rb",
+    "lib/liquid_assets/tilt_engine.rb",
+    "lib/liquid_assets/tiny_liquid.rb",
     "lib/liquid_assets/version.rb",
+    "liquid_assets.gemspec",
     "test/helper.rb",
-    "test/test_liquid_assets.rb"
+    "test/test_liquid_assets.rb",
+    "vendor/assets/javascripts/liquid_assets.js",
+    "vendor/tinyliquid.js"
   ]
   s.homepage = "http://github.com/nathanstitt/liquid_assets"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.23"
-  s.summary = "Liquid templates support"
+  s.summary = "Liquid formmated views and assets"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<liquid>, [">= 0"])
+      s.add_runtime_dependency(%q<tilt>, [">= 0"])
+      s.add_runtime_dependency(%q<sprockets>, [">= 0"])
+      s.add_runtime_dependency(%q<execjs>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
+      s.add_dependency(%q<liquid>, [">= 0"])
+      s.add_dependency(%q<tilt>, [">= 0"])
+      s.add_dependency(%q<sprockets>, [">= 0"])
+      s.add_dependency(%q<execjs>, [">= 0"])
       s.add_dependency(%q<rdoc>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
     end
   else
+    s.add_dependency(%q<liquid>, [">= 0"])
+    s.add_dependency(%q<tilt>, [">= 0"])
+    s.add_dependency(%q<sprockets>, [">= 0"])
+    s.add_dependency(%q<execjs>, [">= 0"])
     s.add_dependency(%q<rdoc>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
