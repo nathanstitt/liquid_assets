@@ -18,8 +18,7 @@ Jeweler::Tasks.new do |gem|
     gem.homepage = "http://github.com/nathanstitt/liquid_assets"
     gem.license = "MIT"
     gem.summary = %Q{Liquid formmated views and assets}
-    gem.description = %Q{Allows you to use Liquid format templates in Rails, both as
-view templates and as compiled JavaScript via the asset_pipeline.}
+    gem.description = %Q{Allows you to use Liquid format templates in Rails, both as view templates and as compiled JavaScript via the asset_pipeline.}
     gem.email = "nathan@stitt.org"
     gem.authors = ["Nathan Stitt"]
     # dependencies defined in Gemfile
