@@ -2140,9 +2140,12 @@ exports.tags = function (text, start, context) {
               var include_parts = inc_tag.name.split('/');
               include_parts[ include_parts.length-1] = '_' + include_parts[ include_parts.length - 1 ];
               var partial_function = context.partials_namespace + '[\'' + include_parts.join('/') + '\']';
-              script += 'if ( ' + partial_function + '){' +
-                  '  $_buf+=' + partial_function + '(' + (inc_tag.with ? inc_tag.with : 'locals') + ',filters);' +
-                  '} else {' +
+              script += 'if ( ' + partial_function + '){';
+                  if ( inc_tag.with )
+                      script+='  $_buf+=' + partial_function + '({\'' + inc_tag.with + '\': locals.' + (inc_tag.with) + '},filters);';
+                  else
+                      script+='  $_buf+=' + partial_function + '(locals,filters);';
+              script+='} else {' +
                   '  $_buf+=\'No such template ' + include_parts.join('/') + '\';' +
                   '}';
               // script += '/* === include "' + inc_tag.name + '"' +

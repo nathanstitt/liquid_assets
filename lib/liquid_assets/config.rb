@@ -68,6 +68,11 @@ module LiquidAssets
             Pathname.new('.')
         end
     end
+
+    def template_root_path
+        root_path.join( 'app','assets','templates' )
+    end
+
     def filters
         @filters ||= Liquid::StandardFilters
     end

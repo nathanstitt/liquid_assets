@@ -15,7 +15,7 @@ module LiquidAssets
             app.assets.register_engine(".liquid", ::LiquidAssets::TiltEngine )
 
             app.config.to_prepare do
-                Liquid::Template.file_system = Liquid::LocalFileSystem.new( Config.root_path )
+                Liquid::Template.file_system = Liquid::LocalFileSystem.new( Config.template_root_path )
                 ApplicationController.send( :append_view_path, LiquidAssets::Config.path_prefix )
             end
         end
