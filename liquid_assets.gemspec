@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "liquid_assets"
-  s.version = "0.2.0"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nathan Stitt"]
-  s.date = "2013-03-16"
+  s.date = "2013-03-22"
   s.description = "Allows you to use Liquid format templates in Rails, both as view templates and as compiled JavaScript via the asset_pipeline."
   s.email = "nathan@stitt.org"
   s.extra_rdoc_files = [
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "lib/liquid_assets.rb",
     "lib/liquid_assets/config.rb",
     "lib/liquid_assets/engine.rb",
+    "lib/liquid_assets/resolver.rb",
     "lib/liquid_assets/template_handler.rb",
     "lib/liquid_assets/tilt_engine.rb",
     "lib/liquid_assets/tiny_liquid.rb",
