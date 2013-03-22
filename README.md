@@ -13,8 +13,7 @@ be a few as I discover bugs and/or better methods of implementing
 features.
 
 My future goals for it are to add template inheritance/override
-support and read template's from active_record. *(probably via a
-supplied Proc)*
+support.
 
 The Ruby bits are via the standard Liquid http://liquidmarkup.org/
 gem.
@@ -48,6 +47,9 @@ The root defaults to app/assets/templates.
          config.path_prefix        = 'app/assets/templates'
          config.filters            = MyFilterModule
          config.template_namespace = 'LQT'
+         config.content_provider   = lambda{ |path|
+             path == 'hello-world' ? 'Hello World!' : false
+         }
      end
 
 

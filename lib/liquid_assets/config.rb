@@ -37,6 +37,12 @@ module LiquidAssets
       # A Ruby module implementing the Liquid Filters that are accessible when templates are evaluated as views
       # Javascript filters must be passed as the second parameter given when evaluating a precompiled template
       attr_writer :filters
+      # May be set to a Proc/Lambda which will be passed the path to a
+      # potential template
+      #
+      # The lambda should return the contents of a liquid template
+      # or false to indicate it is not found
+      attr_writer :content_provider
 
     def configure
       yield self
@@ -69,6 +75,9 @@ module LiquidAssets
         end
     end
 
+    def content_provider
+        @content_provider ||= lambda{|path| false }
+    end
     def template_root_path
         root_path.join( 'app','assets','templates' )
     end
