@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nathan Stitt"]
-  s.date = "2013-03-22"
+  s.date = "2013-03-24"
   s.description = "Allows you to use Liquid format templates in Rails, both as view templates and as compiled JavaScript via the asset_pipeline."
   s.email = "nathan@stitt.org"
   s.extra_rdoc_files = [
@@ -50,16 +50,16 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<liquid>, [">= 0"])
       s.add_runtime_dependency(%q<tilt>, [">= 0"])
-      s.add_runtime_dependency(%q<sprockets>, [">= 0"])
       s.add_runtime_dependency(%q<execjs>, [">= 0"])
+      s.add_runtime_dependency(%q<actionpack>, [">= 3.2"])
       s.add_development_dependency(%q<rdoc>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
       s.add_dependency(%q<liquid>, [">= 0"])
       s.add_dependency(%q<tilt>, [">= 0"])
-      s.add_dependency(%q<sprockets>, [">= 0"])
       s.add_dependency(%q<execjs>, [">= 0"])
+      s.add_dependency(%q<actionpack>, [">= 3.2"])
       s.add_dependency(%q<rdoc>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
@@ -67,8 +67,8 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<liquid>, [">= 0"])
     s.add_dependency(%q<tilt>, [">= 0"])
-    s.add_dependency(%q<sprockets>, [">= 0"])
     s.add_dependency(%q<execjs>, [">= 0"])
+    s.add_dependency(%q<actionpack>, [">= 3.2"])
     s.add_dependency(%q<rdoc>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])

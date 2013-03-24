@@ -30,4 +30,48 @@ class TestLiquidAssets < Test::Unit::TestCase
         assert_equal 'foo=bar', template
     end
 
+
+    def test_resolver
+        LiquidAssets::Config.content_provider = lambda do | path |
+            'good' == path ? 'Hello {{bob|upcase}}' : false
+        end
+
+        details = {:formats=>[:liquid], :locale=>[:en], :handlers=>[] }
+        resolver = LiquidAssets::Resolver.instance
+
+        assert_empty     resolver.find_all('bad','',false, details )
+        assert_not_empty resolver.find_all('good','',false, details )
+    end
+
+    def test_resolver_caches
+        times_called = 0
+        LiquidAssets::Config.content_provider = lambda do | path |
+            times_called += 1
+            'foo/bar/good' == path ? 'Hello {{bob|upcase}}' : false
+        end
+
+        details = {:formats=>[:liquid], :locale=>[:en], :handlers=>[] }
+        resolver = LiquidAssets::Resolver.instance
+        key = 'dumb-key'
+        (0...3).each do
+            resolver.find_all('foo/bar/good',nil ,false, details, key )
+        end
+        assert_equal 1, times_called
+
+        times_called = 0
+
+        resolver.clear_cache_for( 'bad' ) # shouldn't clear cache for 'good'
+
+        resolver.find_all('foo/bar/good',nil,false, details, key )
+
+        assert_equal 0, times_called
+
+        resolver.clear_cache_for( 'foo/bar/good' )
+
+        resolver.find_all('foo/bar/good',nil,false, details, key )
+
+        assert_equal 1, times_called
+
+
+    end
 end

@@ -17,7 +17,7 @@ module LiquidAssets
             app.config.to_prepare do
                 Liquid::Template.file_system = Liquid::LocalFileSystem.new( Config.template_root_path )
                 ApplicationController.send( :append_view_path, LiquidAssets::Config.path_prefix )
-                ApplicationController.send( :prepend_view_path, LiquidAssets::Resolver.new )
+                ApplicationController.send( :prepend_view_path, LiquidAssets::Resolver.instance )
             end
         end
 
