@@ -12,14 +12,8 @@ module LiquidAssets
         def evaluate(scope, locals, &block)
 
             template_path = TemplatePath.new scope
-            template_namespace = LiquidAssets::Config.template_namespace
 
-            compiled_template = TinyLiquid.compile(data)
-
-            <<-TEMPLATE
-                this.#{template_namespace} || (this.#{template_namespace} = {});
-                this.#{template_namespace}[#{template_path.name}] = #{compiled_template};
-            TEMPLATE
+            "#{LiquidAssets::Config.namespace}.Templates[#{template_path.name}] = #{ TinyLiquid.compile(data) };"
         end
 
         protected

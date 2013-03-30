@@ -3,21 +3,23 @@ require 'yaml'
 module LiquidAssets
   # Change config options in an initializer:
   #
-  #   LiquidAssets::Config.template_namespace = 'LT'
+  #   LiquidAssets::Config.namespace = 'LT'
   #
   # Or in a block:
   #
   #   LiquidAssets::Config.configure do |config|
   #      config.path_prefix        = 'app/assets/templates'
   #      config.filters            = MyFilterModule
-  #      config.template_namespace = 'LQT'
+  #      config.namespace = 'LQT'
   #   end
   #
   # Or change config options in a YAML file (config/liquid_assets.yml):
   #
   #   defaults: &defaults
   #     path_prefix: 'templates'
-  #     template_namespace: 'LQT'
+  #     namespace:   'LQT'
+  #     globals:
+  #          company: 'BigCorp Inc'
   #   development:
   #     <<: *defaults
   #   test:
@@ -33,9 +35,11 @@ module LiquidAssets
       # Directory to read templates from.  Default = app/assets/templates
       attr_writer :path_prefix
       # The name of the global JS object that will contain the templates.  Defaults = LQT
-      attr_writer :template_namespace
+      attr_writer :namespace
       # A Ruby module implementing the Liquid Filters that are accessible when templates are evaluated as views
-      # Javascript filters must be passed as the second parameter given when evaluating a precompiled template
+      # Javascript filters can be set by modifying the LQT.Filters object.
+      # A set of the standard Shopify filters are provided for both Ruby & Javascript.
+      # https://github.com/Shopify/liquid/wiki/Liquid-for-Designers
       attr_writer :filters
       # May be set to a Proc/Lambda which will be passed the path to a
       # potential template
@@ -43,6 +47,11 @@ module LiquidAssets
       # The lambda should return the contents of a liquid template
       # or false to indicate it is not found
       attr_writer :content_provider
+      #
+      # A hash of 'global' variables that should always be available to
+      # templates.  This will be merged into the template local variables
+      # when the template is rendered and may overwrite them
+      attr_writer :globals
 
     def configure
       yield self
@@ -59,8 +68,9 @@ module LiquidAssets
     end
 
     def load_yml!
-      @path_prefix         = yml['path_prefix'] if yml.has_key? 'path_prefix'
-      @template_namespace  = yml['template_namespace'] if yml.has_key? 'template_namespace'
+        %{path_prefix namespace globals}.each do | name |
+            self.instance_variable_set( "@#{name}", yml[name] ) if yaml.has_key?(name)
+        end
     end
 
     def path_prefix
@@ -78,6 +88,9 @@ module LiquidAssets
     def content_provider
         @content_provider ||= lambda{|path| false }
     end
+    def globals
+        ( @globals && @globals.is_a?(Proc) ) ? @globals.call : @globals ||= {}
+    end
     def template_root_path
         root_path.join( 'app','assets','templates' )
     end
@@ -85,8 +98,8 @@ module LiquidAssets
     def filters
         @filters ||= Liquid::StandardFilters
     end
-    def template_namespace
-      @template_namespace ||= 'LQT'
+    def namespace
+      @namespace ||= 'LQT'
     end
 
     def yml

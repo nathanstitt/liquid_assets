@@ -8,13 +8,17 @@ module LiquidAssets
 
       class << self
           def compile(source, options = {})
-              js = context.eval("TinyLiquid.parse(#{source.inspect},{partials_namespace:'#{Config.template_namespace}'}).code")
-#              js = context.eval("TinyLiquid.compile(#{source.inspect}, {original: true}).toString()")
-              "function(locals,filters){
-var $_tmpbuf, $_html = LQT._FNS.html, $_err = LQT._FNS.err, $_rethrow=LQT._FNS.rethrow, $_merge=LQT._FNS.merge, $_range=LQT._FNS.range, $_array=LQT._FNS.array;
-#{js}
-return $_buf;
-}"
+              ns = ::LiquidAssets::Config.namespace
+              js = context.eval("TinyLiquid.parse(#{source.inspect},{partials_namespace:'#{Config.namespace}'}).code")
+              <<-TEMPLATE
+                 function(locals,filters){
+                     var $_tmpbuf, $_html = #{ns}._FNS.html, $_err = #{ns}._FNS.err,
+                         $_rethrow=#{ns}._FNS.rethrow, $_merge=#{ns}._FNS.merge,
+                         $_range=#{ns}._FNS.range, $_array=#{ns}._FNS.array;
+                         #{js}
+                         return $_buf;
+                }
+              TEMPLATE
           end
 
           private

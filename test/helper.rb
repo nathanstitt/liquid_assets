@@ -15,7 +15,7 @@ require 'liquid_assets'
 
 module LiquidAssets::Config
     def reset!
-        %w(env path_prefix template_namespace filters ).each do |option|
+        %w(env path_prefix namespace filters ).each do |option|
             send "#{option}=", nil
         end
     end

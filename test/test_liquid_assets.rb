@@ -17,10 +17,9 @@ class TestLiquidAssets < Test::Unit::TestCase
 
         template = LiquidAssets::TiltEngine.new(scope.s_path) { "This is {{me}}" }
 
-        assert_equal <<-END_EXPECTED, template.render(scope, {})
-                this.LQT || (this.LQT = {});
-                this.LQT[\"path/to/template\"] = function(locals,filters){\nvar $_tmpbuf, $_html = LQT._FNS.html, $_err = LQT._FNS.err, $_rethrow=LQT._FNS.rethrow, $_merge=LQT._FNS.merge, $_range=LQT._FNS.range, $_array=LQT._FNS.array;\n/* == Template Begin == */\nvar $_buf = '';\nvar $_line_num = 0;\n/* == define cycles == */\nvar $_cycle_next = function (n) {\nn.i++;\nif (n.i >= n.length) n.i = 0;\n}\n$_buf+=('This is ');\n$_line_num = 1;\n$_tmpbuf = locals.me;\n$_buf+=($_tmpbuf===null||typeof($_tmpbuf)===\"undefined\"?\"\":$_tmpbuf);\nreturn $_buf;\n};
-      END_EXPECTED
+tmpl="LQT.Templates[\"path/to/template\"] =                  function(locals,filters){\n                     var $_tmpbuf, $_html = LQT._FNS.html, $_err = LQT._FNS.err,\n                         $_rethrow=LQT._FNS.rethrow, $_merge=LQT._FNS.merge,\n                         $_range=LQT._FNS.range, $_array=LQT._FNS.array;\n                         /* == Template Begin == */\nvar $_buf = '';\nvar $_line_num = 0;\n/* == define cycles == */\nvar $_cycle_next = function (n) {\nn.i++;\nif (n.i >= n.length) n.i = 0;\n}\n$_buf+=('This is ');\n$_line_num = 1;\n$_tmpbuf = locals.me;\n$_buf+=($_tmpbuf===null||typeof($_tmpbuf)===\"undefined\"?\"\":$_tmpbuf);\n                         return $_buf;\n                }\n;"
+        assert_equal tmpl, template.render(scope, {})
+
     end
 
     def test_template_rendering

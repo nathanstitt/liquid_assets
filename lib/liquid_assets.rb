@@ -1,4 +1,5 @@
 require 'liquid_assets/version'
+require 'liquid_assets/eval'
 require 'liquid_assets/config'
 require 'liquid_assets/template_handler'
 require 'liquid_assets/tilt_engine'
