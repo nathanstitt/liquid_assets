@@ -3,7 +3,11 @@
     namespace = namespace.<%= LiquidAssets::Config.namespace%> || (namespace.<%=LiquidAssets::Config.namespace%>={});
     namespace.Templates || ( namespace.Templates={} );
 
-    namespace.Globals = <%= LiquidAssets::Config.globals.to_json.html_safe %>;
+    namespace.Globals || ( namespace.Globals = {} );
+    var server_globals = <%= LiquidAssets::Config.globals.to_json.html_safe %>;
+    for ( var key in server_globals ){
+        namespace.Globals[ key ] = server_globals[key];
+    }
 
     namespace.Render = function( name, data ){
         if (data == null) {
