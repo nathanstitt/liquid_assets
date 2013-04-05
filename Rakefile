@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 require 'rubygems'
-require 'bundler'
+require 'bundler/gem_tasks'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -10,20 +11,6 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 require 'rake'
-
-require 'jeweler'
-Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-    gem.name = "liquid_assets"
-    gem.homepage = "http://github.com/nathanstitt/liquid_assets"
-    gem.license = "MIT"
-    gem.summary = %Q{Liquid formmated views and assets}
-    gem.description = %Q{Allows you to use Liquid format templates in Rails, both as view templates and as compiled JavaScript via the asset_pipeline.}
-    gem.email = "nathan@stitt.org"
-    gem.authors = ["Nathan Stitt"]
-    # dependencies defined in Gemfile
-end
-Jeweler::RubygemsDotOrgTasks.new
 
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|

@@ -1,5 +1,10 @@
+PATH
+  remote: .
+  specs:
+    liquid_assets (0.3.2)
+
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     actionpack (3.2.13)
       activemodel (= 3.2.13)
@@ -21,18 +26,11 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    git (1.2.5)
     hike (1.2.1)
     i18n (0.6.1)
-    jeweler (1.8.4)
-      bundler (~> 1.0)
-      git (>= 1.2.5)
-      rake
-      rdoc
     journey (1.0.4)
-    json (1.7.7)
     liquid (2.5.0)
-    multi_json (1.7.1)
+    multi_json (1.7.2)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -40,7 +38,6 @@ GEM
       rack (>= 1.0)
     rake (10.0.4)
     rdoc (4.0.0)
-      json (~> 1.4)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -55,7 +52,8 @@ DEPENDENCIES
   actionpack (>= 3.2)
   bundler
   execjs
-  jeweler
   liquid
+  liquid_assets!
+  rake
   rdoc
   tilt
