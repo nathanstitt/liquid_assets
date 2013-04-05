@@ -18,7 +18,7 @@
                 data[key] = namespace.Globals[key];
 
         return namespace.Templates[name]( data, namespace.Filters );
-    }
+    };
 
     namespace.RenderPartial = function( name, data ){
         var path, parts = name.split('/');
@@ -26,8 +26,8 @@
             path = parts.slice( 0, parts.length-1) +'/_'+parts[ parts.length-1 ];
         else
             path = '_' + parts[ parts.length-1 ];
-        namespace.Render( path, data )
-    }
+        return namespace.Render( path, data );
+    };
 
     namespace._FNS = {
         html: function (html) {
@@ -89,7 +89,7 @@ word-wrap:break-word; z-index:9999">' + msg + '</pre>';
 
     var toString = function(input) {
         if (!input) {
-            return;
+            return '';
         }
         if (_.isString(input)) {
             return input;
@@ -137,10 +137,10 @@ word-wrap:break-word; z-index:9999">' + msg + '</pre>';
             input = toString(input);
             truncateString = toString(truncateString);
             if (input == null) {
-                return;
+                return '';
             }
             if (!input.slice) {
-                return;
+                return '';
             }
             length = toNumber(length);
             l = length - truncateString.length;
@@ -164,10 +164,10 @@ word-wrap:break-word; z-index:9999">' + msg + '</pre>';
             }
             input = toString(input);
             if (input == null) {
-                return;
+                return '';
             }
             if (!input.slice) {
-                return;
+                return '';
             }
             wordlist = input.split(" ");
             words = toNumber(words);
@@ -184,7 +184,7 @@ word-wrap:break-word; z-index:9999">' + msg + '</pre>';
         split: function(input, pattern) {
             input = toString(input);
             if (!input) {
-                return;
+                return null;
             }
             return input.split(pattern);
         },
