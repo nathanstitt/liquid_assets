@@ -9,7 +9,7 @@ module LiquidAssets
       class << self
           def compile(source, options = {})
               ns = ::LiquidAssets::Config.namespace
-              js = context.eval("TinyLiquid.parse(#{source.inspect},{partials_namespace:'#{Config.namespace}'}).code")
+              js = context.eval("TinyLiquid.parse(#{source.inspect},{namespace:'#{Config.namespace}'}).code")
               <<-TEMPLATE
                  function(locals,filters){
                      var $_tmpbuf, $_html = #{ns}._FNS.html, $_err = #{ns}._FNS.err,

@@ -2139,14 +2139,14 @@ exports.tags = function (text, start, context) {
               setLineNumber();
               var include_parts = inc_tag.name.split('/');
               include_parts[ include_parts.length-1] = '_' + include_parts[ include_parts.length - 1 ];
-              var partial_function = context.partials_namespace + '[\'' + include_parts.join('/') + '\']';
+              var partial_function = context.namespace + '.Templates[\'' + include_parts.join('/') + '\']';
               script += 'if ( ' + partial_function + '){';
                   if ( inc_tag.with )
                       script+='  $_buf+=' + partial_function + '({\'' + inc_tag.with + '\': locals.' + (inc_tag.with) + '},filters);';
                   else
                       script+='  $_buf+=' + partial_function + '(locals,filters);';
               script+='} else {' +
-                  '  $_buf+=\'No such template ' + include_parts.join('/') + '\';' +
+                  '  $_buf+=\'Partial not found: ' + include_parts.join('/') + '\';' +
                   '}';
               // script += '/* === include "' + inc_tag.name + '"' +
               //           (inc_tag.with ? ' with "' + inc_tag.with + '"' : '') +
@@ -2227,7 +2227,7 @@ exports.parse = function (text, options) {
   };
 
   // 初始化编译环境
-  context.partials_namespace = options.partials_namespace;
+  context.namespace = options.namespace;
   context.customTags = options.tags;  // 自定义的标记解析
   context.loop = 0;                   // { 嵌套层数
   context.loopName = [];              // 当前嵌套标记名称
