@@ -2,6 +2,10 @@ PATH
   remote: .
   specs:
     liquid_assets (0.3.2)
+      actionpack (>= 3.2)
+      execjs
+      liquid
+      tilt
 
 GEM
   remote: https://rubygems.org/
@@ -49,11 +53,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack (>= 3.2)
   bundler
-  execjs
-  liquid
   liquid_assets!
   rake
   rdoc
-  tilt
