@@ -2,7 +2,7 @@ require 'tilt'
 
 module LiquidAssets
 
-    class TiltEngine < Tilt::Template
+    class PipelineTemplateEngine < Tilt::Template
 
         self.default_mime_type = 'application/javascript'
 
@@ -10,10 +10,13 @@ module LiquidAssets
         # end
 
         def evaluate(scope, locals, &block)
-
             template_path = TemplatePath.new scope
 
-            "#{LiquidAssets::Config.namespace}.Templates[#{template_path.name}] = #{ TinyLiquid.compile(data) };"
+            source = Config.content_provider.call( template_path.name )
+            if false == source
+                source = data
+            end
+            "#{LiquidAssets::Config.namespace}.Templates[#{template_path.name.dump}] = #{ TinyLiquid.compile( source ) };"
         end
 
         protected
@@ -32,15 +35,14 @@ module LiquidAssets
             end
 
             def name
-                @name ||= relative_path.dump
+                @name ||= relative_path
             end
 
-            private
 
             attr_accessor :template_path
 
             def relative_path
-                @relative_path ||= template_path.gsub(/^#{LiquidAssets::Config.path_prefix}\/(.*)$/i, "\\1")
+                @relative_path ||= template_path.sub(/^#{LiquidAssets::Config.path_prefix}\/(.*)$/i, '\1' )
             end
         end
     end

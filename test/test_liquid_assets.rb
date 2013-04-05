@@ -9,13 +9,13 @@ class TestLiquidAssets < Test::Unit::TestCase
     end
 
     def test_mime_type
-        assert_equal 'application/javascript', LiquidAssets::TiltEngine.default_mime_type
+        assert_equal 'application/javascript', LiquidAssets::PipelineTemplateEngine.default_mime_type
     end
 
     def test_tilt_engine_rendering
         scope = make_scope '/myapp/app/assets/javascripts', 'path/to/template.mustache'
 
-        template = LiquidAssets::TiltEngine.new(scope.s_path) { "This is {{me}}" }
+        template = LiquidAssets::PipelineTemplateEngine.new(scope.s_path) { "This is {{me}}" }
 
 tmpl="LQT.Templates[\"path/to/template\"] =                  function(locals,filters){\n                     var $_tmpbuf, $_html = LQT._FNS.html, $_err = LQT._FNS.err,\n                         $_rethrow=LQT._FNS.rethrow, $_merge=LQT._FNS.merge,\n                         $_range=LQT._FNS.range, $_array=LQT._FNS.array;\n                         /* == Template Begin == */\nvar $_buf = '';\nvar $_line_num = 0;\n/* == define cycles == */\nvar $_cycle_next = function (n) {\nn.i++;\nif (n.i >= n.length) n.i = 0;\n}\n$_buf+=('This is ');\n$_line_num = 1;\n$_tmpbuf = locals.me;\n$_buf+=($_tmpbuf===null||typeof($_tmpbuf)===\"undefined\"?\"\":$_tmpbuf);\n                         return $_buf;\n                }\n;"
         assert_equal tmpl, template.render(scope, {})

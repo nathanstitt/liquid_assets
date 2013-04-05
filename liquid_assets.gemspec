@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
     "lib/liquid_assets/eval.rb",
     "lib/liquid_assets/resolver.rb",
     "lib/liquid_assets/template_handler.rb",
-    "lib/liquid_assets/tilt_engine.rb",
+    "lib/liquid_assets/pipeline_template_engine.rb",
     "lib/liquid_assets/tiny_liquid.rb",
     "lib/liquid_assets/version.rb",
     "liquid_assets.gemspec",
@@ -75,4 +75,3 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, [">= 0"])
   end
 end
-

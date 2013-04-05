@@ -1,4 +1,4 @@
-require 'liquid_assets/tilt_engine'
+require 'liquid_assets/pipeline_template_engine'
 
 module LiquidAssets
 
@@ -9,10 +9,9 @@ module LiquidAssets
 
             LiquidAssets::Config.load_yml! if LiquidAssets::Config.yml_exists?
 
-
             ActionView::Template.register_template_handler(:liquid, LiquidAssets::TemplateHandler )
 
-            app.assets.register_engine(".liquid", ::LiquidAssets::TiltEngine )
+            app.assets.register_engine(".liquid", ::LiquidAssets::PipelineTemplateEngine )
 
             app.config.to_prepare do
                 Liquid::Template.file_system = Liquid::LocalFileSystem.new( Config.template_root_path )
