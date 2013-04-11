@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    liquid_assets (0.3.2)
+    liquid_assets (0.3.3)
       actionpack (>= 3.2)
       execjs
       liquid
