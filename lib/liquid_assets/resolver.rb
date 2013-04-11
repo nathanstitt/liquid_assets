@@ -58,7 +58,11 @@ module LiquidAssets
 
         def partial_path( path, partial )
             return path if ! partial
-            if index.path.rindex('/')     # had: gsub(/\/([^\/]+)$/,'/_\1')
+            Resolver.convert_path_to_partial( path )
+        end
+
+        def Resolver.convert_path_to_partial( path )
+            if index = path.rindex('/')     # had: gsub(/\/([^\/]+)$/,'/_\1')
                 path.insert(index+1,'_')  # this is better
             else
                 '_' + path
