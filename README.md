@@ -1,4 +1,4 @@
-# liquid_assets version 0.1.0
+# liquid_assets
 
 ## Description
 
