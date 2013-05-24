@@ -22,13 +22,15 @@ module LiquidAssets
         end
 
         def clear_cache_for( expired_path )
-            @cached.each do |context, prefix_hash |
-                prefix_hash.each do | prefix, name_hash |
-                    name_hash.delete_if{ | name, partial_hash |
-                        normalize_path( prefix, name ) == expired_path
-                    }
-                end
-            end
+            # FIXME - this doesn't work sometimes?
+            # @cached.each do |context, prefix_hash |
+            #     prefix_hash.each do | prefix, name_hash |
+            #         name_hash.delete_if{ | name, partial_hash |
+            #             normalize_path( prefix, name ) == expired_path
+            #         }
+            #     end
+            # end
+            clear_cache
         end
 
         private
