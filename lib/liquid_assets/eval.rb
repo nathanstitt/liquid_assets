@@ -1,4 +1,3 @@
-
 module LiquidAssets
 
 
@@ -16,5 +15,17 @@ module LiquidAssets
         LiquidWrapper.new( ::Liquid::Template.parse( source ) )
     end
 
+    def self.template( path )
+        source = Config.content_provider.call( path )
+        if false == source
+            full_path = Config.template_root_path.join( "#{path}.liquid" )
+            if full_path.exist?
+                source = File.read( full_path )
+            else
+                raise Liquid::FileSystemError, "No such template '#{path}' #{full_path}"
+            end
+        end
+        LiquidWrapper.new( ::Liquid::Template.parse( source ) )
+    end
 
 end

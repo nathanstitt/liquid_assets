@@ -69,6 +69,22 @@ LQT.Filters namespace.
 Example
 -----
 
+##### Simple rendering
+``
+tmpl = LiquidAssets.parse <<END_TEMPLATE
+    Hello {{visitor.name | capitalize }},
+    So long and thanks for all the fish!
+END_TEMPLATE
+
+tmpl.render({'visitor'=>{'name'=>'Bob'}})
+``
+
+Or with a file 'foo/bar.liquid', containing the content *(under Config.path_prefix)*:
+`` tmpl = LiquidAssets.template( 'foo/bar' ) ``
+
+
+##### Rendering via rails engine
+
 Given the below configuration:
      LiquidAssets::Config.configure do |config|
          config.globals   = { copyright_holder: 'BigCorp Inc.' }
