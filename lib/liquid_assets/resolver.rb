@@ -12,12 +12,12 @@ module LiquidAssets
         end
 
         def find_templates(name, prefix, partial, details)
-
-            source = Config.content_provider.call( name )
+            path = normalize_path( prefix, name )
+            source = Config.content_provider.call( partial_path( path, partial ) )
             if false == source
                 return []
             else
-                return [ make_template( source, normalize_path( prefix, name ), details, partial ) ]
+                return [ make_template( source, path, details, partial ) ]
             end
         end
 
