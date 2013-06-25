@@ -1,5 +1,9 @@
 (function( namespace, document, undefined) {
 
+    Array.isArray || (Array.isArray = function ( a ) {
+      return'' + a !== a && {}.toString.call( a ) == '[object Array]'
+    });
+
     namespace = namespace.<%= LiquidAssets::Config.namespace%> || (namespace.<%=LiquidAssets::Config.namespace%>={});
     namespace.Templates || ( namespace.Templates={} );
 
