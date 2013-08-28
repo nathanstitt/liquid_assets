@@ -114,6 +114,14 @@ word-wrap:break-word; z-index:9999">' + msg + '</pre>';
         upcase: function(input) {
             return toString(input).toUpperCase();
         },
+        capitalize: function(input){
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        },
+        titleize: function(input){
+            if (input == null) return '';
+            input  = String(input).toLowerCase();
+            return input.replace(/(?:^|\s|-)\S/g, function(c){ return c.toUpperCase(); });
+        },
         append: function(input, other) {
             return [toString(input), toString(other)].join();
         },
@@ -192,12 +200,17 @@ word-wrap:break-word; z-index:9999">' + msg + '</pre>';
             }
             return input.split(pattern);
         },
+        escape: function(input) {
+            var chr = { '"': '&quot;', '&': '&amp;', '<': '&lt;', '>': '&gt;' };
+            return text ? text.replace(/[\"&<>]/g, function (a) { return chr[a]; }) : '';
+        },
         join: function(input, glue) {
             if (glue == null) {
                 glue = ' ';
             }
             return _(input).flatten().join(glue);
         },
+
         first: function(array) {
             if (array.length > 0) {
                 return array[0];

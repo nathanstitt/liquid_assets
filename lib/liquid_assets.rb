@@ -4,6 +4,7 @@ require 'liquid_assets/config'
 require 'liquid_assets/template_handler'
 require 'liquid_assets/liquid_file_system'
 require 'liquid_assets/resolver'
+require 'liquid_assets/filters'
 
 module LiquidAssets
 
@@ -17,8 +18,7 @@ module LiquidAssets
     else
         require 'sprockets'
         Config.load_yml! if Config.yml_exists?
-
         Sprockets.register_engine ".liquid", Tilt
-
     end
+
 end

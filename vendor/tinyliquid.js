@@ -377,7 +377,7 @@ exports.condition = function (cond, context) {
       return '(' + localsWrap(ca[0]) + ')';
     }
     if (ca.length === 3) {
-      var op1 = localsWrap(ca[0]);
+      var op1 = localsWrap( ca[0].replace(/\.(size)$/,".length") );
       var op2 = localsWrap(ca[2]);
       ca[1] = ca[1].toLowerCase();
       if (ca[1] === 'contains') {
