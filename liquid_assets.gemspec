@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
     spec.add_dependency 'liquid'
     spec.add_dependency 'tilt'
     spec.add_dependency 'execjs'
+    spec.add_dependency 'sprockets'
     spec.add_dependency 'actionpack', '>=3.2'
 
     spec.add_development_dependency "bundler", "~> 1.3"

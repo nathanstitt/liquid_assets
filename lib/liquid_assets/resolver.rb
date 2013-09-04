@@ -13,24 +13,12 @@ module LiquidAssets
 
         def find_templates(name, prefix, partial, details)
             path = normalize_path( prefix, name )
-            source = Config.content_provider.call( partial_path( path, partial ) )
-            if false == source
-                return []
+            tmpl = Config.content_provider.call( partial_path( path, partial ) )
+            if tmpl && tmpl.present?
+                return [ make_template( tmpl, path, details, partial ) ]
             else
-                return [ make_template( source, path, details, partial ) ]
+                return []
             end
-        end
-
-        def clear_cache_for( expired_path )
-            # FIXME - this doesn't work sometimes?
-            # @cached.each do |context, prefix_hash |
-            #     prefix_hash.each do | prefix, name_hash |
-            #         name_hash.delete_if{ | name, partial_hash |
-            #             normalize_path( prefix, name ) == expired_path
-            #         }
-            #     end
-            # end
-            clear_cache
         end
 
         private
@@ -45,17 +33,18 @@ module LiquidAssets
             end
         end
 
-        def make_template( source, path, details, partial )
+        def make_template( tmpl, path, details, partial )
             handler = ::ActionView::Template.registered_template_handler('.liquid')
             details = {
                 :virtual_path => partial_path(path, partial ),
-                :locale  => details[:locale].first.to_s,
-                :format  => details[:formats].first.to_s,
-                :handler => details[:handlers].map(&:to_s),
-                :partial => partial || false
+                :locale       => details[:locale].first.to_s,
+                :format       => details[:formats].first.to_s,
+                :handler      => details[:handlers].map(&:to_s),
+                :updated_at   => tmpl.mtime,
+                :partial      => partial || false
             }
             handler = ActionView::Template.registered_template_handler(:liquid)
-            return ActionView::Template.new(source, "LiquidTemplate - #{path}", handler, details)
+            return ActionView::Template.new( tmpl.source, "LiquidTemplate - #{path}", handler, details)
         end
 
         def partial_path( path, partial )

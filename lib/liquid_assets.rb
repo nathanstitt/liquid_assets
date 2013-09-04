@@ -5,13 +5,13 @@ require 'liquid_assets/template_handler'
 require 'liquid_assets/liquid_file_system'
 require 'liquid_assets/resolver'
 require 'liquid_assets/filters'
+require 'liquid_assets/pipeline_template_engine'
+require 'liquid_assets/tiny_liquid'
+require 'liquid_assets/template'
 
 module LiquidAssets
 
     extend Config
-
-    autoload :TinyLiquid, 'liquid_assets/tiny_liquid'
-    autoload :PipelineTemplateEngine, 'liquid_assets/pipeline_template_engine'
 
     if defined? Rails
         require 'liquid_assets/engine'

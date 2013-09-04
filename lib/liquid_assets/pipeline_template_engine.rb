@@ -6,16 +6,14 @@ module LiquidAssets
 
         self.default_mime_type = 'application/javascript'
 
-        # def initialize_engine
-        # end
-
         def evaluate(scope, locals, &block)
-            template_path = TemplatePath.new scope
-
-            source = Config.content_provider.call( template_path.name )
-            if false == source
-                source = data
-            end
+            template_path = TemplatePath.new( scope )
+            tmpl = Config.content_provider.call( template_path.name )
+            source = if tmpl && tmpl.present?
+                         tmpl.source
+                     else
+                         data
+                     end
             "#{LiquidAssets::Config.namespace}.Templates[#{template_path.name.dump}] = #{ TinyLiquid.compile( source ) };"
         end
 

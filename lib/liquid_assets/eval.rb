@@ -16,8 +16,10 @@ module LiquidAssets
     end
 
     def self.template( path )
-        source = Config.content_provider.call( path )
-        if false == source
+        tmpl = Config.content_provider.call( path )
+        if tmpl && tmpl.present?
+            source = tmpl.source
+        else
             full_path = Config.template_root_path.join( "#{path}.liquid" )
             if full_path.exist?
                 source = File.read( full_path )

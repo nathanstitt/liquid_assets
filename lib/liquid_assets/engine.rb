@@ -1,5 +1,3 @@
-require 'liquid_assets/pipeline_template_engine'
-
 module LiquidAssets
 
     class Engine < ::Rails::Engine

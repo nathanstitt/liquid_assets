@@ -5,15 +5,6 @@
 Allows you to use the Liquid template language in Rails, both as
 templates and as JavaScript via the asset_pipeline.
 
-**Warning!** This is very rough, and has only seen minimally production usage.
-
-Although I'm going to attempt to minimize breaking changes, there may
-be a few as I discover bugs and/or better methods of implementing
-features.
-
-My future goals for it are to add template inheritance/override
-support.
-
 The Ruby bits are via the standard Liquid http://liquidmarkup.org/
 gem.
 
@@ -56,7 +47,7 @@ The root defaults to app/assets/templates.
          config.namespace = 'LQT'
          config.globals            = lambda{ { 'website_name': 'A Website of Excellence!' } }
          config.content_provider   = lambda{ |path|
-             path == 'hello-world' ? 'Hello World!' : false
+             path == 'hello-world' ? LiquidAssets::Template.new( 'Hello World!', Time.now ) : false
          }
      end
 
@@ -65,6 +56,9 @@ http://liquid.rubyforge.org/classes/Liquid/StandardFilters.html. Javascript
 versions are also included in the liquid_assets.js file under the
 LQT.Filters namespace.
 
+### Content_provider config
+
+A content provider option can be set on the configuration.  It can be used to retrieve a template
 
 Example
 -----
