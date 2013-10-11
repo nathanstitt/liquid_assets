@@ -24,10 +24,9 @@ tmpl="LQT.Templates[\"path/to/template\"] =                  function(locals,fil
 
     def test_template_rendering
         locals = {foo:'bar'}
-        source = 'foo={{foo}}'
-        compiled = LiquidAssets::TemplateHandler.call(DummyView.new)
-        p compiled
-        assert_equal 'foo=bar', template
+        v = DummyView.new
+        v.compile LiquidAssets::TemplateHandler.call("Hello {{foo|upcase}}")
+        assert_equal 'Hello BAR', v.template( locals )
     end
 
 

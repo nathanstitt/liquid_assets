@@ -37,6 +37,14 @@ class DummyView
     def content_for?(block)
         nil
     end
+    def compile( code )
+        source = <<-end_src
+          def template(local_assigns)
+             #{code}
+          end
+        end_src
+        self.instance_eval(source)
+    end
 end
 
 class Hash
