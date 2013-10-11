@@ -96,7 +96,7 @@ module LiquidAssets
     end
 
     def filters
-        @filters ||= LiquidAssets::TemplateFilters
+        @filters ||= LiquidAssets::Filters
     end
     def namespace
       @namespace ||= 'LQT'
