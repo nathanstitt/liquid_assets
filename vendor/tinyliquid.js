@@ -2106,8 +2106,7 @@ exports.tags = function (text, start, context) {
             var assign_expr = utils.assign(line_right.substr(eq_op + 1).trim(),
                                                              context);
             setLineNumber();
-            script += 'global.' + assign_name + ' = ' + assign_name +
-                      ' = ' + assign_expr + ';';
+            script += assign_name + ' = ' + assign_expr + ';';
           }
           break;
         // capture 定义变量块
@@ -2146,7 +2145,7 @@ exports.tags = function (text, start, context) {
               var partial_function = context.namespace + '.Templates[\'' + include_parts.join('/') + '\']';
               script += 'if ( ' + partial_function + '){';
                   if ( inc_tag.with )
-                      script+='  $_buf+=' + partial_function + '({\'' + inc_tag.with + '\': locals.' + (inc_tag.with) + '},filters);';
+                      script+='  $_buf+=' + partial_function + '($_merge({\'' + inc_tag.with + '\': locals.' + (inc_tag.with) + '},' + context.namespace + '.Globals),filters);';
                   else
                       script+='  $_buf+=' + partial_function + '(locals,filters);';
               script+='} else {' +

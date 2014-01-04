@@ -17,7 +17,7 @@ module LiquidAssets
                          $_range=#{ns}._FNS.range, $_array=#{ns}._FNS.array;
                          #{js}
                          return $_buf;
-                }
+                 }
               TEMPLATE
           end
 
